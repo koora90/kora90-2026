@@ -9,8 +9,6 @@
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Koora90 2026" />
   <link rel="canonical" href="https://koora90.com/" />
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://koora90.com/" />
   <meta property="og:title" content="Koora90 2026 – شاهد المباريات مباشرة" />
@@ -18,14 +16,10 @@
   <meta property="og:image" content="https://koora90.com/logo.png" />
   <meta property="og:locale" content="ar_AR" />
   <meta property="og:site_name" content="Koora90 2026" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Koora90 2026 – شاهد المباريات مباشرة" />
   <meta name="twitter:description" content="تطبيق أندرويد مجاني لمشاهدة المباريات الرياضية بث مباشر." />
   <meta name="twitter:image" content="https://koora90.com/logo.png" />
-
-  <!-- Schema.org structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -33,17 +27,12 @@
     "name": "Koora90 2026",
     "operatingSystem": "Android",
     "applicationCategory": "SportsApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "description": "تطبيق أندرويد مجاني لمشاهدة المباريات الرياضية بث مباشر",
     "url": "https://koora90.com",
     "inLanguage": "ar"
   }
   </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
@@ -51,13 +40,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #0D0D0D;
-      --surface:  #1A1A1A;
-      --green:    #00C853;
-      --green-dim: rgba(0,200,83,0.12);
-      --border:   rgba(255,255,255,0.07);
-      --text:     #FFFFFF;
-      --muted:    rgba(255,255,255,0.55);
+      --bg:        #080810;
+      --surface:   #0f0f1a;
+      --surface2:  #13131f;
+      --green:     #00e676;
+      --green-dim: rgba(0,230,118,0.08);
+      --green-glow:rgba(0,230,118,0.25);
+      --red:       #ff1744;
+      --border:    rgba(255,255,255,0.06);
+      --border2:   rgba(0,230,118,0.15);
+      --text:      #ffffff;
+      --muted:     rgba(255,255,255,0.5);
+      --muted2:    rgba(255,255,255,0.25);
     }
 
     html { scroll-behavior: smooth; }
@@ -70,16 +64,27 @@
       overflow-x: hidden;
     }
 
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
     /* ── NAV ── */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(13,13,13,0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(8,8,16,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      height: 64px;
+      padding: 0 32px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -87,261 +92,476 @@
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-decoration: none;
     }
-    .nav-logo img {
-      width: 52px;
-      height: 52px;
+    .nav-logo-img-wrap {
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
+      background: var(--green-dim);
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    .nav-logo span {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.5px;
+    .nav-logo-img-wrap img {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      object-fit: cover;
     }
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-logo-text .brand { font-size: 17px; font-weight: 900; color: var(--text); }
+    .nav-logo-text .year  { font-size: 11px; font-weight: 600; color: var(--green); letter-spacing: 1px; }
     .nav-dl {
       background: var(--green);
       color: #000;
       font-family: 'Cairo', sans-serif;
       font-weight: 700;
       font-size: 14px;
-      padding: 8px 20px;
+      padding: 9px 22px;
       border-radius: 10px;
       border: none;
       cursor: pointer;
       text-decoration: none;
-      transition: opacity .2s;
+      transition: all .2s;
+      box-shadow: 0 0 20px rgba(0,230,118,0.3);
     }
-    .nav-dl:hover { opacity: .85; }
+    .nav-dl:hover { opacity: .9; box-shadow: 0 0 32px rgba(0,230,118,0.5); transform: translateY(-1px); }
 
     /* ── HERO ── */
+    .hero-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    /* big glow blobs */
+    .hero-wrap::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,230,118,0.12) 0%, transparent 65%);
+      top: -200px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .hero-wrap::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,23,68,0.08) 0%, transparent 65%);
+      top: 100px; right: -100px;
+      pointer-events: none;
+    }
     .hero {
+      position: relative;
       text-align: center;
-      padding: 80px 24px 60px;
-      max-width: 680px;
+      padding: 100px 24px 80px;
+      max-width: 760px;
       margin: 0 auto;
     }
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(220,38,38,0.12);
-      border: 1px solid rgba(220,38,38,0.3);
+      background: rgba(255,23,68,0.1);
+      border: 1px solid rgba(255,23,68,0.25);
       border-radius: 100px;
-      padding: 6px 16px;
+      padding: 7px 18px;
       font-size: 13px;
-      color: #ef4444;
-      font-weight: 600;
-      margin-bottom: 28px;
+      color: #ff4d6d;
+      font-weight: 700;
+      margin-bottom: 32px;
+      letter-spacing: 0.5px;
     }
     .hero-badge .dot {
-      width: 7px;
-      height: 7px;
-      background: #ef4444;
+      width: 8px; height: 8px;
+      background: #ff1744;
       border-radius: 50%;
-      animation: pulse 1.2s ease-in-out infinite alternate;
+      box-shadow: 0 0 8px #ff1744;
+      animation: livepulse 1.4s ease-in-out infinite;
     }
-    @keyframes pulse {
-      from { opacity: .4; }
-      to   { opacity: 1; }
+    @keyframes livepulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: .5; transform: scale(.75); }
     }
     .hero h1 {
-      font-size: clamp(32px, 6vw, 52px);
+      font-size: clamp(36px, 7vw, 64px);
       font-weight: 900;
-      line-height: 1.2;
-      margin-bottom: 20px;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
     }
-    .hero h1 span { color: var(--green); }
-    .hero p {
-      font-size: 17px;
+    .hero h1 .accent {
+      color: var(--green);
+      text-shadow: 0 0 40px rgba(0,230,118,0.4);
+    }
+    .hero h1 .dim { color: rgba(255,255,255,0.4); }
+    .hero-sub {
+      font-size: 18px;
       color: var(--muted);
       line-height: 1.8;
-      margin-bottom: 36px;
+      margin-bottom: 48px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
     }
     .hero-actions {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
     .btn-download {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       background: var(--green);
       color: #000;
       font-family: 'Cairo', sans-serif;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 17px;
-      padding: 14px 36px;
-      border-radius: 14px;
+      padding: 16px 40px;
+      border-radius: 16px;
       text-decoration: none;
-      transition: opacity .2s, transform .15s;
+      transition: all .2s;
+      box-shadow: 0 8px 32px rgba(0,230,118,0.35), 0 0 0 0 rgba(0,230,118,0.4);
+      position: relative;
     }
-    .btn-download:hover { opacity: .88; transform: translateY(-2px); }
+    .btn-download:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(0,230,118,0.45), 0 0 0 6px rgba(0,230,118,0.1);
+    }
     .btn-download svg { width: 22px; height: 22px; flex-shrink: 0; }
-    .hero-note {
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted2);
       font-size: 13px;
+      font-weight: 600;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 6px; }
+    .hero-meta svg { opacity: .5; }
+
+    /* ── STATS ── */
+    .stats-bar {
+      position: relative;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 28px 24px;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .stat {
+      flex: 1;
+      min-width: 140px;
+      max-width: 220px;
+      text-align: center;
+      padding: 8px 20px;
+      border-left: 1px solid var(--border);
+    }
+    .stat:last-child { border-left: none; }
+    .stat-num {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12px;
       color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     /* ── SCREENSHOTS ── */
     .screenshots {
-      padding: 60px 24px;
+      padding: 100px 24px;
       max-width: 1100px;
       margin: 0 auto;
     }
-    .section-label {
+    .section-eyebrow {
       text-align: center;
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       color: var(--green);
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .section-title {
       text-align: center;
-      font-size: clamp(22px, 4vw, 32px);
-      font-weight: 800;
-      margin-bottom: 48px;
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 900;
+      margin-bottom: 60px;
+      letter-spacing: -0.5px;
     }
+    .section-title span { color: var(--green); }
     .screens-grid {
       display: flex;
-      gap: 20px;
+      gap: 24px;
       justify-content: center;
       flex-wrap: wrap;
     }
     .screen-card {
-      width: 220px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
+      width: 200px;
       flex-shrink: 0;
+      position: relative;
     }
-    .screen-card img {
-      width: 100%;
-      display: block;
-      border-radius: 20px;
+    .phone-frame {
+      background: #0a0a14;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow:
+        0 32px 64px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.05),
+        inset 0 0 0 1px rgba(255,255,255,0.03);
+      transition: transform .3s, box-shadow .3s;
     }
-    /* placeholder shown when screenshot not provided */
-    .screen-placeholder {
-      width: 100%;
-      aspect-ratio: 9/19;
-      background: linear-gradient(160deg, #1a1a1a 0%, #111 100%);
+    .phone-frame:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow:
+        0 48px 80px rgba(0,0,0,0.7),
+        0 0 40px rgba(0,230,118,0.1),
+        0 0 0 1px rgba(0,230,118,0.15);
+    }
+    .phone-notch {
+      height: 28px;
+      background: #0a0a14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .phone-notch::after {
+      content: '';
+      width: 60px; height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+    }
+    .phone-screen {
+      aspect-ratio: 9/17;
+      background: linear-gradient(160deg, #111122 0%, #0a0a14 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       color: var(--muted);
-      font-size: 13px;
-      border-radius: 20px;
+      font-size: 11px;
+      overflow: hidden;
     }
-    .screen-placeholder svg { opacity: .3; }
+    .phone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .phone-screen-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted2);
+      font-size: 11px;
+    }
+    .screen-label {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-top: 16px;
+    }
 
     /* ── FEATURES ── */
     .features {
-      padding: 60px 24px;
-      max-width: 900px;
+      padding: 100px 24px;
+      max-width: 960px;
       margin: 0 auto;
     }
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
     }
     .feature-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
+      padding: 32px;
+      transition: background .2s;
+      position: relative;
+      overflow: hidden;
     }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-glow), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .feature-card:hover { background: var(--surface2); }
+    .feature-card:hover::before { opacity: 1; }
     .feature-icon {
-      width: 44px;
-      height: 44px;
+      width: 48px; height: 48px;
       background: var(--green-dim);
-      border-radius: 12px;
+      border: 1px solid var(--border2);
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      transition: all .2s;
+    }
+    .feature-card:hover .feature-icon {
+      background: rgba(0,230,118,0.15);
+      box-shadow: 0 0 20px rgba(0,230,118,0.2);
     }
     .feature-icon svg { color: var(--green); }
-    .feature-card h3 {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .feature-card p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
+    .feature-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+    .feature-card p  { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-    /* ── HOW TO INSTALL ── */
+    /* ── INSTALL ── */
     .install {
-      padding: 60px 24px;
-      max-width: 680px;
+      padding: 100px 24px;
+      max-width: 720px;
       margin: 0 auto;
     }
     .steps {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      margin-top: 40px;
+      gap: 4px;
+      margin-top: 48px;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 24px; bottom: 24px;
+      right: 23px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--green), transparent);
+      opacity: .2;
     }
     .step {
       display: flex;
       align-items: flex-start;
-      gap: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
+      gap: 20px;
+      padding: 24px;
+      border-radius: 16px;
+      transition: background .2s;
+      position: relative;
     }
+    .step:hover { background: var(--surface); }
     .step-num {
-      width: 36px;
-      height: 36px;
-      background: var(--green-dim);
-      border: 1px solid rgba(0,200,83,0.3);
-      border-radius: 10px;
+      width: 48px; height: 48px;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      font-weight: 800;
+      font-size: 18px;
+      font-weight: 900;
       color: var(--green);
       flex-shrink: 0;
+      transition: all .2s;
     }
-    .step-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .step-text p  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .step:hover .step-num {
+      background: var(--green-dim);
+      box-shadow: 0 0 20px rgba(0,230,118,0.15);
+    }
+    .step-text h4 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+    .step-text p  { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
     /* ── CTA ── */
     .cta {
+      margin: 0 24px 80px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 80px 40px;
       text-align: center;
-      padding: 80px 24px;
-      background: linear-gradient(180deg, transparent 0%, rgba(0,200,83,0.04) 100%);
-      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
     }
-    .cta h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 900; margin-bottom: 12px; }
-    .cta p  { color: var(--muted); font-size: 16px; margin-bottom: 32px; }
+    .cta::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(0,230,118,0.08) 0%, transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .cta-eyebrow {
+      font-size: 12px; font-weight: 700; color: var(--green);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .cta h2 {
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 900;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .cta p { color: var(--muted); font-size: 17px; margin-bottom: 40px; }
 
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 24px;
+      padding: 32px 24px;
       text-align: center;
       font-size: 13px;
+      color: var(--muted2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    footer .footer-brand {
+      font-size: 15px;
+      font-weight: 700;
       color: var(--muted);
     }
+    footer a { color: var(--green); text-decoration: none; }
 
-    @media (max-width: 480px) {
-      .screens-grid { gap: 12px; }
-      .screen-card  { width: 160px; }
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; }
+      .hero { padding: 70px 20px 60px; }
+      .stat { min-width: 110px; padding: 8px 12px; }
+      .stat-num { font-size: 22px; }
+      .screens-grid { gap: 14px; }
+      .screen-card { width: 150px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .cta { padding: 50px 24px; margin: 0 16px 60px; }
     }
   </style>
 </head>
@@ -350,69 +570,137 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">
-    <img src="logo.png" alt="Koora90 2026" />
-    <span>Koora90 2026</span>
+    <div class="nav-logo-img-wrap">
+      <img src="logo.png" alt="Koora90" />
+    </div>
+    <div class="nav-logo-text">
+      <span class="brand">Koora90</span>
+      <span class="year">2026</span>
+    </div>
   </a>
   <a class="nav-dl" href="https://github.com/koora90/kora90-2026/releases/download/v1.0.0/koora90.apk" download>تحميل مجاناً</a>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  
-  <div class="hero-badge">
-    <span class="dot"></span>
-    مباشر الآن
+<div class="hero-wrap">
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      مباشر الآن
+    </div>
+    <h1>
+      شاهد المباريات<br/>
+      <span class="accent">مباشرة</span>
+      <span class="dim"> · مجاناً</span>
+    </h1>
+    <p class="hero-sub">
+      تطبيق Koora90 2026 يتيح لك متابعة أهم المباريات الرياضية بث مباشر — بدون اشتراك، بدون إعلانات.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-download" href="https://github.com/koora90/kora90-2026/releases/download/v1.0.0/koora90.apk" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        تحميل التطبيق — APK
+      </a>
+      <div class="hero-meta">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
+          Android
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          مجاني 100%
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          بدون تسجيل
+        </span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar reveal">
+  <div class="stat">
+    <div class="stat-num">100+</div>
+    <div class="stat-label">قناة رياضية</div>
   </div>
-  <h1>شاهد المباريات<br /><span>مباشرة</span> على هاتفك</h1>
-  <p>تطبيق Koora90 2026 يتيح لك متابعة أهم المباريات الرياضية بث مباشر — مجاناً وبدون اشتراك.</p>
-  <div class="hero-actions">
-    <a class="btn-download" href="https://github.com/koora90/kora90-2026/releases/download/v1.0.0/koora90.apk" download>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 15V3M12 15l-4-4M12 15l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/>
-      </svg>
-      تحميل التطبيق — APK
-    </a>
-    <span class="hero-note">مجاني · Android · بدون إعلانات</span>
+  <div class="stat">
+    <div class="stat-num">HD</div>
+    <div class="stat-label">جودة البث</div>
   </div>
-</section>
+  <div class="stat">
+    <div class="stat-num">0 ريال</div>
+    <div class="stat-label">تكلفة الاشتراك</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">بث مستمر</div>
+  </div>
+</div>
 
 <!-- SCREENSHOTS -->
-<section class="screenshots">
-  <p class="section-label">معاينة</p>
-  <h2 class="section-title">واجهة بسيطة وسريعة</h2>
+<section class="screenshots reveal">
+  <p class="section-eyebrow">معاينة</p>
+  <h2 class="section-title">واجهة <span>بسيطة</span> وسريعة</h2>
   <div class="screens-grid">
-    <!-- استبدل src بمسار الصورة الحقيقية -->
+
     <div class="screen-card">
-      <img src="screenshots/screen1.jpeg" alt="شاشة المباريات"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-      <div class="screen-placeholder" style="display:none">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        screenshot 1
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="screenshots/screen1.jpeg" alt="شاشة المباريات"
+               onerror="this.style.display='none'" />
+          <div class="phone-screen-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            المباريات المباشرة
+          </div>
+        </div>
       </div>
+      <p class="screen-label">المباريات المباشرة</p>
     </div>
+
     <div class="screen-card">
-      <img src="screenshots/screen2.jpeg" alt="مباريات مباشرة"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-      <div class="screen-placeholder" style="display:none">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        screenshot 2
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="screenshots/screen2.jpeg" alt="جدول المباريات"
+               onerror="this.style.display='none'" />
+          <div class="phone-screen-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
+            جدول المباريات
+          </div>
+        </div>
       </div>
+      <p class="screen-label">جدول المباريات</p>
     </div>
+
     <div class="screen-card">
-      <img src="screenshots/screen4.jpeg" alt="الإشعارات"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-      <div class="screen-placeholder" style="display:none">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-        screenshot 4
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <img src="screenshots/screen4.jpeg" alt="التنبيهات"
+               onerror="this.style.display='none'" />
+          <div class="phone-screen-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".3"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            التنبيهات
+          </div>
+        </div>
       </div>
+      <p class="screen-label">تنبيهات المباريات</p>
     </div>
+
   </div>
 </section>
 
 <!-- FEATURES -->
-<section class="features">
-  <p class="section-label">المميزات</p>
-  <h2 class="section-title">كل ما تحتاجه في مكان واحد</h2>
+<section class="features reveal">
+  <p class="section-eyebrow">المميزات</p>
+  <h2 class="section-title">كل ما تحتاجه في <span>مكان واحد</span></h2>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">
@@ -420,8 +708,8 @@
           <circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>
         </svg>
       </div>
-      <h3>بث مباشر</h3>
-      <p>تابع المباريات لحظة بلحظة بجودة عالية ومن مصادر متعددة.</p>
+      <h3>بث مباشر عالي الجودة</h3>
+      <p>تابع المباريات لحظة بلحظة من مصادر متعددة بجودة HD مستقرة.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
@@ -439,7 +727,7 @@
         </svg>
       </div>
       <h3>جدول المباريات</h3>
-      <p>اعرف مواعيد جميع المباريات القادمة مرتبة حسب الوقت.</p>
+      <p>اطلع على مواعيد جميع المباريات القادمة مرتبة حسب الوقت.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
@@ -448,63 +736,92 @@
         </svg>
       </div>
       <h3>مجاني تماماً</h3>
-      <p>لا اشتراكات، لا إعلانات، لا حساب مطلوب. حمّل وشاهد.</p>
+      <p>لا اشتراكات، لا إعلانات، لا حساب مطلوب. حمّل وشاهد فوراً.</p>
     </div>
   </div>
 </section>
 
-<!-- HOW TO INSTALL -->
-<section class="install">
-  <p class="section-label">التثبيت</p>
-  <h2 class="section-title" style="text-align:center">كيف تثبّت التطبيق؟</h2>
+<!-- INSTALL -->
+<section class="install reveal">
+  <p class="section-eyebrow">التثبيت</p>
+  <h2 class="section-title" style="text-align:center">كيف تثبّت <span>التطبيق؟</span></h2>
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
       <div class="step-text">
         <h4>حمّل ملف APK</h4>
-        <p>اضغط على زر التحميل أدناه وانتظر اكتمال التنزيل.</p>
+        <p>اضغط على زر التحميل وانتظر اكتمال التنزيل على هاتفك.</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">2</div>
       <div class="step-text">
-        <h4>اسمح بتثبيت التطبيقات من مصادر خارجية</h4>
+        <h4>اسمح بالتثبيت من مصادر خارجية</h4>
         <p>اذهب إلى الإعدادات ← الأمان ← فعّل "مصادر غير معروفة" أو اسمح للمتصفح بالتثبيت عند الطلب.</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">3</div>
       <div class="step-text">
-        <h4>افتح ملف APK وثبّت التطبيق</h4>
+        <h4>افتح ملف APK وثبّت</h4>
         <p>اضغط على الملف المحمّل واتبع خطوات التثبيت.</p>
       </div>
     </div>
     <div class="step">
       <div class="step-num">4</div>
       <div class="step-text">
-        <h4>حمّل تطبيق KLink Player</h4>
-        <p>لتشغيل المباريات تحتاج إلى KLink Player — يمكنك تحميله مجاناً من Play Store عند أول تشغيل.</p>
+        <h4>حمّل KLink Player</h4>
+        <p>لتشغيل البث تحتاج KLink Player — يمكنك تحميله مجاناً من Play Store.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta">
-  <h2>جاهز للمشاهدة؟</h2>
-  <p>حمّل Koora90 2026 الآن وتابع مبارياتك المفضلة مجاناً.</p>
+<section class="cta reveal">
+  <p class="cta-eyebrow">جاهز للمشاهدة؟</p>
+  <h2>حمّل التطبيق الآن<br/>وتابع مبارياتك مجاناً</h2>
+  <p>Android · بدون اشتراك · بدون إعلانات</p>
   <a class="btn-download" href="https://github.com/koora90/kora90-2026/releases/download/v1.0.0/koora90.apk" download>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 15V3M12 15l-4-4M12 15l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
     </svg>
-    تحميل مجاناً — Android
+    تحميل مجاناً — APK
   </a>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 Koora90 2026 · جميع الحقوق محفوظة</p>
+  <span class="footer-brand">Koora90 2026</span>
+  <span>© 2026 · جميع الحقوق محفوظة</span>
 </footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Hide placeholder if image loads
+  document.querySelectorAll('.phone-screen img').forEach(img => {
+    img.addEventListener('load', () => {
+      const placeholder = img.nextElementSibling;
+      if (placeholder) placeholder.style.display = 'none';
+    });
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+    });
+  });
+</script>
 
 </body>
 </html>
